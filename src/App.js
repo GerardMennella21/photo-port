@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import About from './components/About';
 import Nav from './components/Nav';
 import Gallery from './components/Gallery';
+import ContactForm from './components/Contact';
 
 function App() {
 
   const [categories] = useState([
       {
-          name: "commericial",
+          name: "commercial",
           description: "Photos of grocery stores, food trucks, and other commercial projects"
       },
       {
@@ -25,13 +26,26 @@ function App() {
   ])
 
   const [currentCategory, setCurrentCategory] = useState(categories[0])
+  const [contactSelected, setContactSelected] = useState(false);
 
   return (
     <div>
-      <Nav categories={categories} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory} />
+      <Nav 
+        categories={categories} 
+        setCurrentCategory={setCurrentCategory} 
+        currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
+      />
       <main>
-        <Gallery currentCategory={currentCategory} />
-        <About />
+        {!contactSelected ? (
+          <>
+            <Gallery currentCategory={currentCategory} />
+            <About />
+          </>
+        ): (
+          <ContactForm />
+        )}
       </main>
     </div>
   );
